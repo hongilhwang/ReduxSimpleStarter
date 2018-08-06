@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/';
+import * as actions from '../actions/'
 import { Link } from 'react-router-dom';
 
 class PostsIndex extends Component {
@@ -45,4 +45,14 @@ class PostsIndex extends Component {
 function mapStateToProps(state){
     return { posts : state.posts.all }
 }
-export default connect( mapStateToProps, { fetchPosts } )(PostsIndex);
+
+const mapDispatchToProps = ( dispatch ) => {
+
+  const action = type => dispatch({type});
+  return {
+    fetchPosts : () => action(actions.FETCH_POSTS)
+  }
+}
+
+
+export default connect( mapStateToProps, mapDispatchToProps )(PostsIndex);
